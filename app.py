@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash
 import sqlite3
 from datetime import date
 
 app = Flask(__name__)
+app.secret_key = "attendance_secret"
 
 def get_db():
     conn = sqlite3.connect("attendance.db")
@@ -19,7 +20,12 @@ def index():
 
 @app.route("/add", methods=["POST"])
 def add_student():
-    name = request.form["name"]
+    name = request.form.get("name")
+
+    # Validation
+    if not name or name.strip() == "":
+        flash("Student name is required!")
+        return redirect("/")
 
     conn = get_db()
     conn.execute("INSERT INTO students (name) VALUES (?)", (name,))
