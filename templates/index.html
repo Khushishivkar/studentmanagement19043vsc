@@ -17,6 +17,7 @@ table{
 margin:auto;
 border-collapse:collapse;
 background:white;
+margin-top:20px;
 }
 
 th{
@@ -26,6 +27,7 @@ color:white;
 
 th,td{
 padding:10px;
+border:1px solid #ccc;
 }
 
 input{
@@ -38,6 +40,10 @@ background:green;
 color:white;
 border:none;
 cursor:pointer;
+}
+
+button:hover{
+background:#0b7d0b;
 }
 
 .present{
@@ -58,6 +64,10 @@ color:white;
 padding:5px 10px;
 text-decoration:none;
 border-radius:4px;
+}
+
+.delete:hover{
+background:#b30000;
 }
 
 </style>
@@ -88,7 +98,7 @@ oninput="this.setCustomValidity('')"
 
 <h3>Student List</h3>
 
-<table border="1" cellpadding="10">
+<table>
 
 <tr>
 <th>ID</th>
@@ -125,7 +135,7 @@ Delete
 
 <h3>Attendance Records</h3>
 
-<table border="1" cellpadding="10">
+<table>
 
 <tr>
 <th>ID</th>
