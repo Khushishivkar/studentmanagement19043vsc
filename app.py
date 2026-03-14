@@ -15,14 +15,13 @@ def index():
 conn = get_db()
 
 ```
-students = conn.execute(
-    "SELECT * FROM students"
-).fetchall()
+# student list
+students = conn.execute("SELECT * FROM students").fetchall()
 
-# JOIN query to show student name in attendance records
+# attendance records with student name
 attendance = conn.execute("""
 SELECT attendance.id,
-       students.id as student_id,
+       students.id AS student_id,
        students.name,
        attendance.status,
        attendance.date
@@ -34,11 +33,7 @@ ORDER BY attendance.date DESC
 
 conn.close()
 
-return render_template(
-    "index.html",
-    students=students,
-    attendance=attendance
-)
+return render_template("index.html", students=students, attendance=attendance)
 ```
 
 @app.route("/add", methods=["POST"])
@@ -89,6 +84,13 @@ def delete(id):
 ```
 conn = get_db()
 
+# delete attendance records first
+conn.execute(
+    "DELETE FROM attendance WHERE student_id=?",
+    (id,)
+)
+
+# delete student
 conn.execute(
     "DELETE FROM students WHERE id=?",
     (id,)
